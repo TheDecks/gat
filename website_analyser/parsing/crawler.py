@@ -72,20 +72,20 @@ class Crawler(LoggerMixin):
     def _create_webpage(self, url: str, parent_webpage: Optional[Webpage] = None) -> Webpage:
         parent_url_base = parent_webpage.url.url_base if parent_webpage else None
         parent_url_resource = parent_webpage.url.resource_path if parent_webpage else None
-        url = Url(website_analyser.shared.url_utils.create_clean_url(url, parent_url_base, parent_url_resource))
+        url_obj = Url(website_analyser.shared.url_utils.create_clean_url(url, parent_url_base, parent_url_resource))
         if (
                 self.is_excluding_paths
-                and url.resource_path is not None
-                and self.resource_path_exclude_pattern.search(url.resource_path)
+                and url_obj.resource_path is not None
+                and self.resource_path_exclude_pattern.search(url_obj.resource_path)  # noqa
         ):
             is_url_accepted = False
         else:
             is_url_accepted = True
         webpage = Webpage(
-            url=url,
-            is_in_website_space=url.url in self.crawl_only_pages if self.is_restricting_search else True,
-            is_from_domain=url.domain == self.starting_url.domain,
-            is_from_domain_space=url.shares_domain_space(self.starting_url),
+            url=url_obj,
+            is_in_website_space=url_obj.url in self.crawl_only_pages if self.is_restricting_search else True,
+            is_from_domain=url_obj.domain == self.starting_url.domain,
+            is_from_domain_space=url_obj.shares_domain_space(self.starting_url),
             is_accepted_path=is_url_accepted,
         )
         self.logger.debug(f"Created {webpage}")
@@ -109,10 +109,11 @@ class Crawler(LoggerMixin):
     @staticmethod
     def _get_content_status_size(webpage: Webpage) -> Tuple[Optional[str], int, Optional[int]]:
         content: Optional[str] = None
-        status: int = 404  # TODO: Find a more reliable way of marking failure to parse url
+        status: int = 404  # TODO: Find a more reliable way of marking failure to parse url_obj
         size: Optional[int] = None
         try:
             response = requests.get(webpage.url.url)
+            # TODO: This is `hacky` way. This function should be thoroughly rewritten and logic split to concerns
             if "html" in response.headers.get("content-type", "html").lower():
                 if response.status_code == 200:
                     content = response.text

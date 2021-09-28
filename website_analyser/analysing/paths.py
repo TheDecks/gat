@@ -6,7 +6,7 @@ from website_analyser.mixins.logger_mixin import LoggerMixin
 
 Webpage = website_analyser.shared.webpage.Webpage
 Website = website_analyser.shared.website.Website
-PagesPath = Tuple[Webpage]
+PagesPath = Tuple[Webpage, ...]
 
 
 class Paths(LoggerMixin):

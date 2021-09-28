@@ -112,7 +112,7 @@ Also following additional requirement is not met: `We would like to see graphica
 # Insights
 I am not fully satisfied with the solution, mostly due to the structure of code, overengineering, inconsistency in imports and insufficient or badly designed abstraction layer.
 Some classes are also tightly coupled and their interface is not clear. Aaaand there are no tests or docstrings... I probably should have used already implemented
-tools for most of the operations, like `scrapy` or `networkx`, but it was more fun this way.
+tools for most of the operations, like `scrapy` or `networkx`, but it was more fun this way. Oh yea, not to mention this probably do not pass `mypy` validation in some places
 
 # Further improvements
 A looooooooooot. More abstraction to crawler (and in general - improve and make it more readable), clearer code, handling domain switch mid-crawl to follow right `robots.txt`, more metrics, extend `explore`...

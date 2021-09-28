@@ -95,6 +95,7 @@ class TextUI:
         shortest_path = self.paths.webpages_shortest_paths.get(website_from, {}).get(website_to)
         if shortest_path is None:
             print(f"No path found")
+            return
         print("\n".join([page.url.url for page in shortest_path]))
 
     MENU_ITEM_TO_METHOD: Dict[int, Callable[['TextUI'], None]] = {
@@ -122,6 +123,7 @@ class RunCLI:
             return website_structure.to_json()
         else:
             website_structure.save(output)
+            return None
 
     def explore(self, path_or_url: str) -> None:
         """Simple text based UI"""

@@ -59,7 +59,8 @@ class FairExtractor(LoggerMixin, website_analyser.parsing.extract.base.Extractor
     def get_robots_txt(self) -> Optional[str]:
         response = requests.get(self.robots_txt_url)
         if response.status_code == 200:
-            return response.text
+            robots_txt: str = response.text
+            return robots_txt
         return None
 
     def get_sitemaps_urls(self, robots_txt_content: str) -> List[str]:

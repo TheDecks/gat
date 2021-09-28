@@ -1,4 +1,4 @@
-from typing import Collection, Dict, List, Optional
+from typing import Collection, Dict, Optional, Set
 
 import website_analyser.analysing.paths
 import website_analyser.shared.webpage
@@ -45,7 +45,7 @@ class Explorer:
             single_line_template.format(url=page.url.url, times_linked=times_linked[page]) for page in relevant_webpages
         ])
 
-    def _find_dead_links(self) -> Dict[Webpage, List[Webpage]]:
+    def _find_dead_links(self) -> Dict[Webpage, Set[Webpage]]:
         dead_webpages = {
             page for page in self.website.webpages
             if page.response_status_code is not None and page.response_status_code != 200
