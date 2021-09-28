@@ -96,8 +96,7 @@ In any command, option `--logging_level` can be set to control the verbosity of 
 
 I do think that for the most part, the task is solved. I see multiple places where things are not handled perfectly or some case if overlooked, but this
 is mostly a draft of an extensible solution. Two points from the list are hard to answer due to implementation limitation:
- * `We would like to know if there are any dead (pointing to the non-existing pages) links on our site.` - currently only invalid links or internal dead links can be spotted 
- - response status of external pages is not checked.
+ * `We would like to know if there are any dead (pointing to the non-existing pages) links on our site.` - currently only invalid links or internal dead links can be spotted - response status of external pages is not checked.
  * `Average size of the page in our website (HTML only!)` - size information is taken from `content-length` and this is not always available. Also no distinction between HTML and non-HTML content is made.
 
 Both of the problems can be solved by changing a bit how the crawler works. Possibly:
