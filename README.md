@@ -110,7 +110,7 @@ Also following additional requirement is not met: `We would like to see graphica
  * customize nodes and edges look based on data available from crawling
 
 # Insights
-I am not fully satisfied with the solution, mostly due to the structure of code, inconsistency in imports and insufficient or badly designed abstraction layer.
+I am not fully satisfied with the solution, mostly due to the structure of code, overengineering, inconsistency in imports and insufficient or badly designed abstraction layer.
 Some classes are also tightly coupled and their interface is not clear. Aaaand there are no tests or docstrings... I probably should have used already implemented
 tools for most of the operations, like `scrapy` or `networkx`, but it was more fun this way.
 
