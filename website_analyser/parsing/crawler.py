@@ -113,11 +113,12 @@ class Crawler(LoggerMixin):
         size: Optional[int] = None
         try:
             response = requests.get(webpage.url.url)
-            if response.status_code == 200:
-                content = response.text
-            status = response.status_code
-            size = response.headers.get("content-length")
-            size = int(size) if size else None
+            if "html" in response.headers.get("content-type", "html").lower():
+                if response.status_code == 200:
+                    content = response.text
+                status = response.status_code
+                size = response.headers.get("content-length")
+                size = int(size) if size else None
         except urllib3.exceptions.LocationParseError:
             pass
         return content, status, size
